@@ -4,7 +4,7 @@ import static enigma.EnigmaException.*;
 
 /** Represents a permutation of a range of integers starting at 0 corresponding
  *  to the characters of an alphabet.
- *  @author
+ *  @author Nam Anh Mai
  */
 public class Permutation {
 
@@ -15,6 +15,7 @@ public class Permutation {
      *  Whitespace is ignored. */
     public Permutation(String cycles, Alphabet alphabet) {
         _alphabet = alphabet;
+        _cycles = cycles;
         // FIXME - Assign any additional instance variables.
     }
 
@@ -29,7 +30,13 @@ public class Permutation {
 
     /** Returns the size of the alphabet I permute. */
     public int size() {
-        return 0; // FIXME - How do we ask the alphabet for its size?
+        // FIXME - How do we ask the alphabet for its size?
+        int count = 0;
+        for (int i=0; i < _cycles.length(); i++) {
+            if (_cycles.charAt(i) != ' ' && _cycles.charAt(i) != '(' && _cycles.charAt(i) != ')')
+                count++;
+        }
+        return count;
     }
 
     /** Return the index result of applying this permutation to the character
@@ -67,6 +74,7 @@ public class Permutation {
 
     /** Alphabet of this permutation. */
     private Alphabet _alphabet;
+    private String _cycles;
 
     // FIXME - How do we store which letter permutes/inverts to which?
 
