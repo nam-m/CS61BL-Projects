@@ -31,19 +31,15 @@ public class Permutation {
     /** Returns the size of the alphabet I permute. */
     public int size() {
         // FIXME - How do we ask the alphabet for its size?
-        int count = 0;
-        for (int i=0; i < _cycles.length(); i++) {
-            if (_cycles.charAt(i) != ' ' && _cycles.charAt(i) != '(' && _cycles.charAt(i) != ')')
-                count++;
-        }
-        return count;
+        return _alphabet.size();
     }
 
     /** Return the index result of applying this permutation to the character
      *  at index P in ALPHABET. */
     public int permute(int p) {
     	// NOTE: it might be beneficial to have one permute() method always call the other
-        return 0;  // FIXME - How do we use our instance variables to get the index that P permutes to?
+        // FIXME - How do we use our instance variables to get the index that P permutes to?
+        return 0;
     }
 
     /** Return the index result of applying the inverse of this permutation

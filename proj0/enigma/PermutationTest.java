@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import static enigma.TestUtils.*;
 
 /** The suite of all JUnit tests for the Permutation class.
- *  @author
+ *  @author Nam Anh Mai
  */
 public class PermutationTest {
 
@@ -54,8 +54,8 @@ public class PermutationTest {
     @Test
     public void checkForwardTransform() {
     	// permutation which maps each character forward by one (e.g. A->B, Z->A)
-        perm = new Permutation("(FIXME)", UPPER); // FIXME - what string represents the Permutation for the above description?
-        checkPerm("forward", UPPER_STRING, "FIXME"); // FIXME - what string represents the result of permuting each letter?
+        perm = new Permutation("(ABCDEFGHIJKLMNOPQRSTUVWXYZ)", UPPER); // FIXME - what string represents the Permutation for the above description?
+        checkPerm("forward", UPPER_STRING, "BCDEFGHIJKLMNOPQRSTUVWXYZA"); // FIXME - what string represents the result of permuting each letter?
     }
 
     @Test
