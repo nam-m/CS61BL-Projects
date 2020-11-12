@@ -61,16 +61,13 @@ public class PermutationTest {
     @Test
     public void checkBackwardTransform() {
     	// permutation which maps each character backward by one (e.g. B->A, A->Z)
-        perm = new Permutation("(ABCDEFGHIJKLMNOPQRSTUVWXYZ)", UPPER); // FIXME - what string represents the Permutation for the above description?
+        perm = new Permutation("(ZYXWVUTSRQPONMLKJIHGFEDCBA)", UPPER); // FIXME - what string represents the Permutation for the above description?
         checkPerm("backward", UPPER_STRING, "ZABCDEFGHIJKLMNOPQRSTUVWXY"); // FIXME - what string represents the result of permuting each letter?
     }
 
     @Test
     public void checkNavalPermutation() {
-    	perm = new Permutation(NAVALA.get("I"), UPPER); // Consider trying Rotors besides Rotor I
-    	checkPerm("naval A: I", UPPER_STRING, NAVALA_MAP.get("I"));
+    	perm = new Permutation(NAVALA.get("II"), UPPER); // Consider trying Rotors besides Rotor I
+    	checkPerm("naval A: II", UPPER_STRING, NAVALA_MAP.get("II"));
     }
-
-    // FIXME Additional Tests
-
 }
