@@ -77,8 +77,8 @@ public class Rotor {
     public int convertBackward(int c) {
         // FIXME - How do we invert the index E, taking into account my current position?
         int enterContact = _permutation.wrap(c + _setting);
-        int permuteContact = _permutation.invert(enterContact);
-        return _permutation.wrap(permuteContact - _setting);
+        int invertContact = _permutation.invert(enterContact);
+        return _permutation.wrap(invertContact - _setting);
     }
 
     /** Returns true if and only if I am positioned to allow the rotor
