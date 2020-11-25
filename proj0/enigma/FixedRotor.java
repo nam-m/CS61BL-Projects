@@ -3,7 +3,7 @@ package enigma;
 import static enigma.EnigmaException.*;
 
 /** Class that represents a rotor that has no ratchet and does not advance.
- *  @author
+ *  @author Nam Anh Mai
  */
 public class FixedRotor extends Rotor {
 
@@ -33,18 +33,23 @@ public class FixedRotor extends Rotor {
         Permutation perm = new Permutation("(ABCDEFGHIJKLMNOPQRSTUVWXYZ)", new CharacterRange('A', 'Z'));
         Rotor rotor = new FixedRotor("forward one", perm);
 
-        System.out.println(rotor.name().equals("forward one"));
+        System.out.println(rotor.name().equals("forward one")); //test rotor name
         System.out.println(rotor.alphabet() == perm.alphabet());
         System.out.println(rotor.permutation() == perm);
+
+        //Fixed rotor does not rotate and is not reflector
         System.out.println(rotor.rotates() == false);
         System.out.println(rotor.reflecting() == false);
 
+        //Test set method of rotor setting
         System.out.println(rotor.size() == 26);
-        rotor.set(1);
-        System.out.println(rotor.setting() == 1);
-        rotor.set('A');
-        System.out.println(rotor.setting() == 0);
-        System.out.println(rotor.convertForward(0) == 1);
-        System.out.println(rotor.convertBackward(1) == 0);
+        rotor.set(15);
+        System.out.println(rotor.setting() == 15);
+        rotor.set('C');
+        System.out.println(rotor.setting() == 2);
+
+        //
+        System.out.println(rotor.convertForward(25) == 0);
+        System.out.println(rotor.convertBackward(0) == 25);
     }
 }
