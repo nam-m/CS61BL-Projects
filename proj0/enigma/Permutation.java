@@ -77,12 +77,12 @@ public class Permutation {
     /** Return the character result of applying the inverse of this permutation
 	 * to the index of character P in ALPHABET. */
     public char invert(char c) {
-    	// NOTE: it might be beneficial to have one invert() method always call the other
+    	// NOTE: it might be benefiurn cial to have one invert() method always call the other
         // FIXME - How do we use our instance variables to get the character that C inverts to?
         char prevChar = c;
         //Split cycles into a string array of permutation groups
         String[] cycleString = splitCycles(_cycles);
-        for (String s : cycleString) {
+        for (String s : cycleString) {"ABC"
             if (s.contains(String.valueOf(c))) {
                 int prevCharLocation = s.indexOf(c) - 1;
                 if (prevCharLocation == -1)

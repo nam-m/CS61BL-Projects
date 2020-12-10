@@ -45,11 +45,9 @@ public class FixedRotor extends Rotor {
         System.out.println(rotor.size() == 26);
         rotor.set(15);
         System.out.println(rotor.setting() == 15);
-        rotor.set('C');
-        System.out.println(rotor.setting() == 2);
-
-        //
-        System.out.println(rotor.convertForward(25) == 0);
+        rotor.set('F');
+        System.out.println(rotor.setting() == 5);
+        System.out.println(rotor.convertForward(24));
         System.out.println(rotor.convertBackward(0) == 25);
     }
 }

@@ -3,7 +3,7 @@ package enigma;
 import static enigma.EnigmaException.*;
 
 /** Class that represents a reflector in the enigma.
- *  @author
+ *  @author Nam Anh Mai
  */
 public class Reflector extends FixedRotor {
 
@@ -23,11 +23,13 @@ public class Reflector extends FixedRotor {
 
     @Override // Use this special tag when updating the behavior of a method this class inherits from FixedRotor
     public boolean reflecting() {
-        return false; // FIXME? - How do we know whether this Rotor should reflect?
+        // FIXME? - How do we know whether this Rotor should reflect?
+        return true;
     }
 
     @Override // Use this special tag when updating the behavior of a method this class inherits from FixedRotor
     public void set(int posn) {
+        // reflector will not change position
         super.set(0);
     }
 
@@ -51,8 +53,9 @@ public class Reflector extends FixedRotor {
         System.out.println(rotor.setting() == 0);
         rotor.set('A');
         System.out.println(rotor.setting() == 0);
-        System.out.println(rotor.convertForward(0) == 1);
-        System.out.println(rotor.convertBackward(1) == 0);
+        System.out.println(rotor.convertForward(28));
+        System.out.println(rotor.convertBackward(0));
+        System.out.println(rotor.convertBackward(0) == 25);
     }
 
 }
