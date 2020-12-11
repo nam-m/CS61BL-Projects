@@ -82,7 +82,7 @@ public class Permutation {
         char prevChar = c;
         //Split cycles into a string array of permutation groups
         String[] cycleString = splitCycles(_cycles);
-        for (String s : cycleString) {"ABC"
+        for (String s : cycleString) {
             if (s.contains(String.valueOf(c))) {
                 int prevCharLocation = s.indexOf(c) - 1;
                 if (prevCharLocation == -1)
