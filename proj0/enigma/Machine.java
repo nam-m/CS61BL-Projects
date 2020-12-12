@@ -53,6 +53,9 @@ public class Machine {
      *  leftmost rotor setting (not counting the reflector).  */
     public void setRotors(String setting) {
         // FIXME - How do we set the positions of each Rotor in this Machine?
+        for (int i=0; i < setting.length(); i++) {
+            _rotorSlots[i+1].set(setting.charAt(i));
+        }
     }
 
     /** Set the plugboard to PLUGBOARD. */
@@ -137,7 +140,12 @@ public class Machine {
         Machine machine = new Machine(upper, 5, 3, allRotors);
         machine.insertRotors(new String[]{"B", "BETA", "III", "IV", "I"});
         System.out.println("Rotor slots from inner to outer: " + Arrays.toString(machine._rotorSlots));
-//        machine.setRotors("AXLE");
+        machine.setRotors("AXLE");
+        System.out.print("Rotor positions from inner to outer: ");
+        for (Rotor r : machine._rotorSlots) {
+            System.out.print(r.setting() + " ");
+        }
+        System.out.println();
 //        machine.setPlugboard(new Permutation("(HQ) (EX) (IP) (TR) (BY)", upper));
 //
 //        System.out.println(machine.numRotors() == 5);
