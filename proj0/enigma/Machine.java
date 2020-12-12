@@ -1,29 +1,37 @@
 package enigma;
 
+import java.util.Arrays;
+
 import static enigma.EnigmaException.*;
 
 /** Class that represents a complete enigma machine.
- *  @author
+ *  @author Nam Anh Mai
  */
 public class Machine {
 
     /** A new Enigma machine with alphabet ALPHA, 1 < NUMROTORS rotor slots,
      *  and 0 <= PAWLS < NUMROTORS pawls. ALLROTORS contains all the
      *  available rotors. */
-    public Machine(Alphabet alpha, int numRotors, int pawls,
+    public Machine(Alphabet alpha, int numRotors, int numPawls,
             Rotor[] allRotors) {
         _alphabet = alpha;
         // FIXME - Assign any additional instance variables.
+        _numRotors = numRotors;
+        _numPawls = numPawls;
+        _allRotors = allRotors;
+        _rotorSlots = new Rotor[numRotors];
     }
 
     /** Return the number of rotor slots I have. */
     public int numRotors() {
-        return 0; // FIXME - How do we access the number of Rotor slots I have?
+        // FIXME - How do we access the number of Rotor slots I have?
+        return _numRotors;
     }
 
     /** Return the number pawls (and thus rotating rotors) I have. */
     public int numPawls() {
-        return 0; // FIXME - How do we access the number of pawls I have?
+        // FIXME - How do we access the number of pawls I have?
+        return _numPawls;
     }
 
     /** Set my rotor slots to the rotors named ROTORS from my set of
@@ -31,6 +39,13 @@ public class Machine {
      *  Initially, all rotors are set at their 0 setting. */
     public void insertRotors(String[] rotors) {
         // FIXME - How do we fill this Machine with Rotors, based on names of available Rotors?
+        for (int i=0; i < rotors.length; i++) {
+            for (int j=0; j < _allRotors.length; j++) {
+                // Upper case is needed to compare fixed rotor's name (e.g. Beta, Gamma) to "rotors" value
+                if (_allRotors[j].name().toUpperCase().equals(rotors[i]))
+                    _rotorSlots[i] = _allRotors[j];
+            }
+        }
     }
 
     /** Set my rotors according to SETTING, which must be a string of
@@ -72,6 +87,10 @@ public class Machine {
     private final Alphabet _alphabet;
 
     // FIXME - How do we keep track of my available Rotors/my Rotors/my pawls/my plugboard
+    private int _numRotors;
+    private int _numPawls;
+    private Rotor[] _allRotors;
+    private Rotor[] _rotorSlots;
 
     // FIXME: ADDITIONAL FIELDS HERE, IF NEEDED.
 
@@ -79,7 +98,6 @@ public class Machine {
     // javac enigma/Machine.java enigma/Rotor.java enigma/FixedRotor.java enigma/Reflector.java enigma/MovingRotor.java enigma/Permutation.java enigma/Alphabet.java enigma/CharacterRange.java enigma/EnigmaException.java
     // java enigma/Machine
     public static void main(String[] args) {
-
         CharacterRange upper = new CharacterRange('A', 'Z');
         MovingRotor rotorI = new MovingRotor("I",
                 new Permutation("(AELTPHQXRU) (BKNW) (CMOY) (DFG) (IV) (JZ) (S)", upper),
@@ -118,15 +136,16 @@ public class Machine {
 
         Machine machine = new Machine(upper, 5, 3, allRotors);
         machine.insertRotors(new String[]{"B", "BETA", "III", "IV", "I"});
-        machine.setRotors("AXLE");
-        machine.setPlugboard(new Permutation("(HQ) (EX) (IP) (TR) (BY)", upper));
-
-        System.out.println(machine.numRotors() == 5);
-        System.out.println(machine.numPawls() == 3);
-        System.out.println(machine.convert(5) == 16);
-        System.out.println(machine.convert(17) == 21);
-        System.out.println(machine.convert("OMHISSHOULDERHIAWATHA").equals("PQSOKOILPUBKJZPISFXDW"));
-        System.out.println(machine.convert("TOOK THE CAMERA OF ROSEWOOD").equals("BHCNSCXNUOAATZXSRCFYDGU"));
-        System.out.println(machine.convert("Made of sliding folding rosewood").equals("FLPNXGXIXTYJUJRCAUGEUNCFMKUF"));
+        System.out.println("Rotor slots from inner to outer: " + Arrays.toString(machine._rotorSlots));
+//        machine.setRotors("AXLE");
+//        machine.setPlugboard(new Permutation("(HQ) (EX) (IP) (TR) (BY)", upper));
+//
+//        System.out.println(machine.numRotors() == 5);
+//        System.out.println(machine.numPawls() == 3);
+//        System.out.println(machine.convert(5) == 16);
+//        System.out.println(machine.convert(17) == 21);
+//        System.out.println(machine.convert("OMHISSHOULDERHIAWATHA").equals("PQSOKOILPUBKJZPISFXDW"));
+//        System.out.println(machine.convert("TOOK THE CAMERA OF ROSEWOOD").equals("BHCNSCXNUOAATZXSRCFYDGU"));
+//        System.out.println(machine.convert("Made of sliding folding rosewood").equals("FLPNXGXIXTYJUJRCAUGEUNCFMKUF"));
     }
 }
