@@ -40,10 +40,10 @@ public class Machine {
     public void insertRotors(String[] rotors) {
         // FIXME - How do we fill this Machine with Rotors, based on names of available Rotors?
         for (int i=0; i < rotors.length; i++) {
-            for (int j=0; j < _allRotors.length; j++) {
+            for (Rotor allRotor : _allRotors) {
                 // Upper case is needed to compare fixed rotor's name (e.g. Beta, Gamma) to "rotors" value
-                if (_allRotors[j].name().toUpperCase().equals(rotors[i]))
-                    _rotorSlots[i] = _allRotors[j];
+                if (allRotor.name().toUpperCase().equals(rotors[i]))
+                    _rotorSlots[i] = allRotor;
             }
         }
     }
@@ -61,6 +61,7 @@ public class Machine {
     /** Set the plugboard to PLUGBOARD. */
     public void setPlugboard(Permutation plugboard) {
         // FIXME - How do we assign our plugboard, based on a given Permutation?
+        _plugboard = plugboard;
     }
 
     /** Returns the result of converting the input character C (as an
@@ -71,12 +72,25 @@ public class Machine {
     	//			the appropriate Rotors. Then, send the signal into the
     	//			Plugboard, through the Rotors, bouncing off the Reflector,
     	//			back through the Rotors, then out of the Plugboard again.
-        return 0; // FIXME - How do we convert a single character index?
+        // FIXME - How do we convert a single character index?
+        advance();
+        return 0;
     }
 
     /** Optional helper method for convert() which rotates the necessary Rotors. */
     private void advance() {
     	// FIXME - How do we make sure that only the correct Rotors are advanced?
+        /* When pawl of rotor (i-1) slips into notched ring of rotor i
+            both rotor (i-1) and rotor i move (except fixed rotor) */
+        for (int i=numRotors()-1; i > numRotors()-numPawls(); i--) {
+            if (_rotorSlots[i].atNotch()) {
+                _rotorSlots[i-1].advance();
+                if (i != numRotors()-1)
+                    _rotorSlots[i].advance();
+            }
+        }
+        // Outermost rotor always moves when pawl moves
+        _rotorSlots[numRotors()-1].advance();
     }
 
     /** Returns the encoding/decoding of MSG, updating the state of
@@ -94,6 +108,7 @@ public class Machine {
     private int _numPawls;
     private Rotor[] _allRotors;
     private Rotor[] _rotorSlots;
+    private Permutation _plugboard;
 
     // FIXME: ADDITIONAL FIELDS HERE, IF NEEDED.
 
@@ -112,7 +127,7 @@ public class Machine {
                 new Permutation("(ABDHPEJT) (CFLVMZOYQIRWUKXSG) (N)", upper),
                 "V");
         MovingRotor rotorIV = new MovingRotor("IV",
-                new Permutation("(AEPLIYWCOXMRFZBSTGJQNH) (DV) (KU)", upper),
+                new Permutation("(AEPLIYWCOXMRFZBSTGJQNH) (DV) (                                                                                                             )", upper),
                 "J");
         MovingRotor rotorV = new MovingRotor("V",
                 new Permutation("(AVOLDRWFIUQ)(BZKSMNHYC) (EGTJPX)", upper),
@@ -146,8 +161,8 @@ public class Machine {
             System.out.print(r.setting() + " ");
         }
         System.out.println();
-//        machine.setPlugboard(new Permutation("(HQ) (EX) (IP) (TR) (BY)", upper));
-//
+        machine.setPlugboard(new Permutation("(HQ) (EX) (IP) (TR) (BY)", upper));
+
 //        System.out.println(machine.numRotors() == 5);
 //        System.out.println(machine.numPawls() == 3);
 //        System.out.println(machine.convert(5) == 16);
