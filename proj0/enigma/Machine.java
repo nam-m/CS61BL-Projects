@@ -81,15 +81,16 @@ public class Machine {
             RotorToReflector = convertRotors(_rotorSlots[i], RotorToReflector);
             System.out.println(RotorToReflector);
         }
-        System.out.println("Character after entering reflector: " + String.valueOf(RotorToReflector));
+        System.out.println("Character after entering reflector: " + RotorToReflector);
         int ReflectorToRotor = RotorToReflector;
         // Character after bouncing off reflector (1)
         for (int i=1; i < numRotors(); i++) {
             ReflectorToRotor = invertRotors(_rotorSlots[i], ReflectorToRotor);
             System.out.println(ReflectorToRotor);
         }
-        System.out.println("Character after exiting outermost rotor: " + String.valueOf(ReflectorToRotor));
-        return 0;
+        System.out.println("Character after exiting outermost rotor: " + ReflectorToRotor);
+        int outOfPlugboard = _plugboard.permute(ReflectorToRotor);
+        return outOfPlugboard;
     }
 
     /** Optional helper method for convert() which rotates the necessary Rotors. */
@@ -151,7 +152,7 @@ public class Machine {
                 new Permutation("(ABDHPEJT) (CFLVMZOYQIRWUKXSG) (N)", upper),
                 "V");
         MovingRotor rotorIV = new MovingRotor("IV",
-                new Permutation("(AEPLIYWCOXMRFZBSTGJQNH) (DV) (                                                                                                             )", upper),
+                new Permutation("(AEPLIYWCOXMRFZBSTGJQNH) (DV) (KU)", upper),
                 "J");
         MovingRotor rotorV = new MovingRotor("V",
                 new Permutation("(AVOLDRWFIUQ)(BZKSMNHYC) (EGTJPX)", upper),
