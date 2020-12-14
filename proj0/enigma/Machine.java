@@ -74,6 +74,21 @@ public class Machine {
     	//			back through the Rotors, then out of the Plugboard again.
         // FIXME - How do we convert a single character index?
         advance();
+        // Character after entering plugboard
+        int intoPlugboard = _plugboard.permute(c);
+        int RotorToReflector = intoPlugboard;
+        for (int i=numRotors()-1; i >= 0; i--) {
+            RotorToReflector = convertRotors(_rotorSlots[i], RotorToReflector);
+            System.out.println(RotorToReflector);
+        }
+        System.out.println("Character after entering reflector: " + String.valueOf(RotorToReflector));
+        int ReflectorToRotor = RotorToReflector;
+        // Character after bouncing off reflector (1)
+        for (int i=1; i < numRotors(); i++) {
+            ReflectorToRotor = invertRotors(_rotorSlots[i], ReflectorToRotor);
+            System.out.println(ReflectorToRotor);
+        }
+        System.out.println("Character after exiting outermost rotor: " + String.valueOf(ReflectorToRotor));
         return 0;
     }
 
@@ -81,7 +96,8 @@ public class Machine {
     private void advance() {
     	// FIXME - How do we make sure that only the correct Rotors are advanced?
         /* When pawl of rotor (i-1) slips into notched ring of rotor i
-            both rotor (i-1) and rotor i move (except fixed rotor) */
+            both rotor (i-1) and rotor i move (except fixed rotor)
+            Rotor right next to a fixed rotor only moves due to the rotor on its right*/
         for (int i=numRotors()-1; i > numRotors()-numPawls(); i--) {
             if (_rotorSlots[i].atNotch()) {
                 _rotorSlots[i-1].advance();
@@ -91,6 +107,14 @@ public class Machine {
         }
         // Outermost rotor always moves when pawl moves
         _rotorSlots[numRotors()-1].advance();
+    }
+
+    private int convertRotors (Rotor rotor, int c) {
+        return rotor.convertForward(c);
+    }
+
+    private int invertRotors (Rotor rotor, int c) {
+        return rotor.convertBackward(c);
     }
 
     /** Returns the encoding/decoding of MSG, updating the state of
@@ -154,6 +178,9 @@ public class Machine {
 
         Machine machine = new Machine(upper, 5, 3, allRotors);
         machine.insertRotors(new String[]{"B", "BETA", "III", "IV", "I"});
+
+//        System.out.println(machine.numRotors() == 5);
+//        System.out.println(machine.numPawls() == 3);
         System.out.println("Rotor slots from inner to outer: " + Arrays.toString(machine._rotorSlots));
         machine.setRotors("AXLE");
         System.out.print("Rotor positions from inner to outer: ");
@@ -162,10 +189,12 @@ public class Machine {
         }
         System.out.println();
         machine.setPlugboard(new Permutation("(HQ) (EX) (IP) (TR) (BY)", upper));
-
-//        System.out.println(machine.numRotors() == 5);
-//        System.out.println(machine.numPawls() == 3);
-//        System.out.println(machine.convert(5) == 16);
+        System.out.println(machine.convert(5));
+        System.out.print("Rotor positions from inner to outer: ");
+        for (Rotor r : machine._rotorSlots) {
+            System.out.print(r.setting() + " ");
+        }
+//        System.out.println();
 //        System.out.println(machine.convert(17) == 21);
 //        System.out.println(machine.convert("OMHISSHOULDERHIAWATHA").equals("PQSOKOILPUBKJZPISFXDW"));
 //        System.out.println(machine.convert("TOOK THE CAMERA OF ROSEWOOD").equals("BHCNSCXNUOAATZXSRCFYDGU"));
