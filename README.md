@@ -15,7 +15,7 @@ This project simulates the mechanical mechanisms of a real Enigma Machine,
 which comprises a plugboard, multiple rotors arranged adjacently on a hub,
 and a set of corresponding pawls that triggers rotor movement.
 
-![Exploded Enigma Rotor](library/data/proj0_imgs/exploded_enigma_rotor)
+![Exploded Enigma Rotor](https://github.com/nam-m/CS61BL-Projects/blob/master/library/data/proj0_imgs/exploded_enigma_rotor.png)
 
 ### Usage (to be updated)
 
