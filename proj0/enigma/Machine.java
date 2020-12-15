@@ -40,11 +40,10 @@ public class Machine {
     public void insertRotors(String[] rotors) {
         // FIXME - How do we fill this Machine with Rotors, based on names of available Rotors?
         for (int i=0; i < rotors.length; i++) {
-            for (Rotor allRotor : _allRotors) {
-                // Upper case is needed to compare fixed rotor's name (e.g. Beta, Gamma) to "rotors" value
+            // Upper case is needed to compare fixed rotor's name (e.g. Beta, Gamma) to "rotors" value
+            for (Rotor allRotor : _allRotors)
                 if (allRotor.name().toUpperCase().equals(rotors[i]))
                     _rotorSlots[i] = allRotor;
-            }
         }
     }
 
@@ -79,16 +78,16 @@ public class Machine {
         int RotorToReflector = intoPlugboard;
         for (int i=numRotors()-1; i >= 0; i--) {
             RotorToReflector = convertRotors(_rotorSlots[i], RotorToReflector);
-            System.out.println(RotorToReflector);
+//            System.out.println(RotorToReflector);
         }
-        System.out.println("Character after entering reflector: " + RotorToReflector);
+//        System.out.println("Character after entering reflector: " + RotorToReflector);
         int ReflectorToRotor = RotorToReflector;
         // Character after bouncing off reflector (1)
         for (int i=1; i < numRotors(); i++) {
             ReflectorToRotor = invertRotors(_rotorSlots[i], ReflectorToRotor);
-            System.out.println(ReflectorToRotor);
+//            System.out.println(ReflectorToRotor);
         }
-        System.out.println("Character after exiting outermost rotor: " + ReflectorToRotor);
+//        System.out.println("Character after exiting outermost rotor: " + ReflectorToRotor);
         int outOfPlugboard = _plugboard.permute(ReflectorToRotor);
         return outOfPlugboard;
     }
@@ -121,8 +120,15 @@ public class Machine {
     /** Returns the encoding/decoding of MSG, updating the state of
      *  the rotors accordingly. */
     public String convert(String msg) {
+        // FIXME - How do we convert an entire String?
     	// HINT: Strings are basically just a series of characters
-        return ""; // FIXME - How do we convert an entire String?
+        StringBuilder convertedMsg = new StringBuilder();
+        msg = msg.replaceAll("\\s+","").toUpperCase();
+        for (int i=0; i < msg.length(); i++){
+            char c = msg.charAt(i);
+            convertedMsg.append(_alphabet.toChar(convert(_alphabet.toInt(c))));
+        }
+        return convertedMsg.toString();
     }
 
     /** Common alphabet of my rotors. */
@@ -180,8 +186,8 @@ public class Machine {
         Machine machine = new Machine(upper, 5, 3, allRotors);
         machine.insertRotors(new String[]{"B", "BETA", "III", "IV", "I"});
 
-//        System.out.println(machine.numRotors() == 5);
-//        System.out.println(machine.numPawls() == 3);
+        System.out.println(machine.numRotors() == 5);
+        System.out.println(machine.numPawls() == 3);
         System.out.println("Rotor slots from inner to outer: " + Arrays.toString(machine._rotorSlots));
         machine.setRotors("AXLE");
         System.out.print("Rotor positions from inner to outer: ");
@@ -190,15 +196,15 @@ public class Machine {
         }
         System.out.println();
         machine.setPlugboard(new Permutation("(HQ) (EX) (IP) (TR) (BY)", upper));
-        System.out.println(machine.convert(5));
+        System.out.println(machine.convert(5) == 16);
         System.out.print("Rotor positions from inner to outer: ");
         for (Rotor r : machine._rotorSlots) {
             System.out.print(r.setting() + " ");
         }
-//        System.out.println();
-//        System.out.println(machine.convert(17) == 21);
-//        System.out.println(machine.convert("OMHISSHOULDERHIAWATHA").equals("PQSOKOILPUBKJZPISFXDW"));
-//        System.out.println(machine.convert("TOOK THE CAMERA OF ROSEWOOD").equals("BHCNSCXNUOAATZXSRCFYDGU"));
-//        System.out.println(machine.convert("Made of sliding folding rosewood").equals("FLPNXGXIXTYJUJRCAUGEUNCFMKUF"));
+        System.out.println();
+        System.out.println(machine.convert(17) == 21);
+        System.out.println(machine.convert("OMHISSHOULDERHIAWATHA").equals("PQSOKOILPUBKJZPISFXDW"));
+        System.out.println(machine.convert("TOOK THE CAMERA OF ROSEWOOD").equals("BHCNSCXNUOAATZXSRCFYDGU"));
+        System.out.println(machine.convert("Made of sliding folding rosewood").equals("FLPNXGXIXTYJUJRCAUGEUNCFMKUF"));
     }
 }
