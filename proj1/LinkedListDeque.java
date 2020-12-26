@@ -1,6 +1,20 @@
 public class LinkedListDeque<T> implements Deque<T>{
-    public int item;
+    private static class LinkedListNode<T> {
+        public T item;
+        public LinkedListNode next;
+
+        //Constructor
+        public LinkedListNode(T item, LinkedListNode next) {
+            this.item = item;
+            this.next = next;
+        }
+
+    }
+    private LinkedListNode sentinel;
+    private int size;
+
     public LinkedListDeque() {
+        sentinel = new LinkedListNode(null, null);
 
     }
 
@@ -16,12 +30,14 @@ public class LinkedListDeque<T> implements Deque<T>{
 
     @Override
     public boolean isEmpty() {
+        if (size() == 0)
+            return true;
         return false;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
