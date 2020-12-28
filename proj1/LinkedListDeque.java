@@ -58,7 +58,12 @@ public class LinkedListDeque<T> implements Deque<T>{
 
     @Override
     public void printDeque() {
-
+        LinkedListNode p = sentinel.next;
+        while (p.next != sentinel) {
+            System.out.print(String.valueOf(p.item) + " ");
+            p = p.next;
+        }
+        System.out.print(String.valueOf(p.item) + "\n");
     }
 
     @Override
@@ -73,6 +78,11 @@ public class LinkedListDeque<T> implements Deque<T>{
 
     @Override
     public T get(int index) {
-        return null;
+        if (size == 0 || index < 0 || index > size())
+            return null;
+        LinkedListNode p = sentinel.next;
+        while (index-- > 0)
+            p = p.next;
+        return (T) p.item;
     }
 }
