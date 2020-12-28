@@ -30,16 +30,16 @@ public class LinkedListDeque<T> implements Deque<T>{
     // Linked list deque with 1 item
     public LinkedListDeque(T item) {
         sentinel = new LinkedListNode(null, null, null);
-        sentinel.next = new LinkedListNode(item, null, null);
+        sentinel.next = new LinkedListNode(item, sentinel, sentinel);
         sentinel.prev = sentinel.next;
-        sentinel.next.next = sentinel;
-        sentinel.next.prev = sentinel;
         size = 1;
     }
 
     @Override
     public void addFirst(T item) {
-
+        sentinel.next = new LinkedListNode(item, sentinel.next,sentinel);
+        sentinel.prev.prev = sentinel.next;
+        size++;
     }
 
     @Override
