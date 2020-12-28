@@ -21,11 +21,11 @@ public class LinkedListDequeTest {
             assertEquals(2, lld1.size());
             assertFalse(lld1.isEmpty());
 //
-//            lld1.addLast("middle");
-//            assertEquals(2, lld1.size());
-//
-//            lld1.addLast("back");
-//            assertEquals(3, lld1.size());
+            lld1.addLast("middle");
+            assertEquals(3, lld1.size());
+
+            lld1.addLast("back");
+            assertEquals(4, lld1.size());
 
         } finally {
             // The deque will be printed at the end of this test
