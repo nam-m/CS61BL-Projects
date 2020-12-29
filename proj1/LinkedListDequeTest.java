@@ -42,17 +42,24 @@ public class LinkedListDequeTest {
     @Test
     public void addRemoveTest() {
         System.out.println("Running add/remove test.");
-        System.out.println("Make sure to uncomment the lines below (and delete this line).");
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
 
         try {
             assertTrue(lld1.isEmpty());
 
             lld1.addFirst(10);
+            lld1.addFirst(4);
+            lld1.addFirst(3);
+            lld1.addFirst(1);
+            lld1.addFirst(7);
+            lld1.addFirst(8);
             assertFalse(lld1.isEmpty());
+            System.out.println("Printing out deque: ");
+            lld1.printDeque();
 
             lld1.removeFirst();
-            assertTrue(lld1.isEmpty());
+            lld1.removeLast();
+//            assertTrue(lld1.isEmpty());
         } finally {
             System.out.println("Printing out deque: ");
             lld1.printDeque();
