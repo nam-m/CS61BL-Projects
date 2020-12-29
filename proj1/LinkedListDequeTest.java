@@ -59,7 +59,20 @@ public class LinkedListDequeTest {
 
             lld1.removeFirst();
             lld1.removeLast();
-//            assertTrue(lld1.isEmpty());
+            System.out.println("Printing out deque after removing first and last indexes: ");
+            lld1.printDeque();
+
+            for (int i=0;i < 10000;i++) {
+                lld1.addFirst(1);
+                lld1.addLast(2);
+            }
+            for (int i=0;i < 10000;i++) {
+                lld1.removeFirst();
+                lld1.removeLast();
+            }
+            System.out.println("Printing out deque after removing first index: ");
+            lld1.printDeque();
+
         } finally {
             System.out.println("Printing out deque: ");
             lld1.printDeque();
