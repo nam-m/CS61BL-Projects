@@ -4,29 +4,40 @@ public class ArrayDeque<T> implements Deque<T> {
     private int size;
     private int nextFirst;
     private int nextLast;
+    private T[] arr;
+    // Number of items with values in array
+    private int numOfItems = 0;
     // Pointer to array
     private T ptr;
-    private T[] arr;
+
 
     public ArrayDeque() {
         // Create a generic type object array and cast it as type T
         arr = (T[]) new Object [0];
         ptr = arr[0];
+        nextFirst = 0;
+        nextLast = 0;
     }
 
     public ArrayDeque(int size) {
         arr = (T[]) new Object[size];
         ptr = arr[0];
+        nextFirst = 0;
+        nextLast = size() - 1;
     }
 
     @Override
     public void addFirst(T item) {
-
+        arr[nextFirst] = item;
+        numOfItems++;
+        nextFirst = (nextFirst - 1) % size();
     }
 
     @Override
     public void addLast(T item) {
-
+        arr[nextLast] = item;
+        numOfItems++;
+        nextLast = (nextLast + 1) % size();
     }
 
     @Override
