@@ -5,37 +5,46 @@ public class ArrayDequeTest {
     @Test
     public void addIsEmptySizeTest() {
         System.out.println("Running add/isEmpty/Size test.");
-        ArrayDeque<String> arr1 = new ArrayDeque<>();
+        ArrayDeque<String> arr1 = new ArrayDeque<>(1);
         ArrayDeque<String> arr2 = new ArrayDeque<>(8);
 
         System.out.println("Printing out empty array deque: ");
         arr1.printDeque();
-        System.out.println("Printing out array deque: ");
-        arr2.printDeque();
+//        System.out.println("Printing out array deque: ");
+//        arr2.printDeque();
 
         // Java will try to run the below code.
         // If there is a failure, it will jump to the finally block before erroring.
         // If all is successful, the finally block will also run afterwards.
         try {
-            assertTrue(arr1.isEmpty());
+//            assertTrue(arr1.isEmpty());
             arr1.addFirst("front");
             assertEquals("front", arr1.get(0));
-            assertFalse(arr1.isEmpty());
+            arr1.addFirst("first");
+            assertEquals("front", arr1.get(0));
+            System.out.println("Printing out array deque: ");
+            arr1.printDeque();
 
             arr1.addLast("middle");
-            assertEquals("middle", arr1.get(7));
+            assertEquals("middle", arr1.get(0));
+            System.out.println("Printing out array deque: ");
+            arr1.printDeque();
 
             arr1.addLast("back");
-            assertEquals("back", arr1.get(7));
+            assertEquals("back", arr1.get(0));
+            System.out.println("Printing out array deque: ");
+            arr1.printDeque();
 
         } finally {
             // The deque will be printed at the end of this test
             // or after the first point of failure.
             System.out.println("Printing out array deque: ");
             arr1.printDeque();
-            int index = 3;
-            System.out.printf("Print item at index %d: ", index);
-            System.out.println(arr1.get(index));
+//            System.out.println("Printing out array deque: ");
+//            arr2.printDeque();
+//            int index = 3;
+//            System.out.printf("Print item at index %d: ", index);
+//            System.out.println(arr1.get(index));
         }
     }
 
@@ -43,7 +52,7 @@ public class ArrayDequeTest {
     @Test
     public void addRemoveTest() {
         System.out.println("Running add/remove test.");
-        ArrayDeque<Integer> arr1 = new ArrayDeque<>();
+        ArrayDeque<Integer> arr1 = new ArrayDeque<>(8);
 
         try {
             assertTrue(arr1.isEmpty());
