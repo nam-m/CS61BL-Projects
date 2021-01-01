@@ -6,7 +6,7 @@ public class ArrayDequeTest {
     public void addIsEmptySizeTest() {
         System.out.println("Running add/isEmpty/Size test.");
         ArrayDeque<String> arr1 = new ArrayDeque<>(1);
-        ArrayDeque<String> arr2 = new ArrayDeque<>(8);
+//        ArrayDeque<String> arr2 = new ArrayDeque<>(8);
 
         System.out.println("Printing out empty array deque: ");
         arr1.printDeque();
@@ -20,20 +20,29 @@ public class ArrayDequeTest {
 //            assertTrue(arr1.isEmpty());
             arr1.addFirst("front");
             assertEquals("front", arr1.get(0));
+            System.out.println("Printing out array deque: ");
+            arr1.printDeque();
+
             arr1.addFirst("first");
-            assertEquals("front", arr1.get(0));
-            System.out.println("Printing out array deque: ");
-            arr1.printDeque();
+            assertEquals("first", arr1.get(0));
 
-            arr1.addLast("middle");
-            assertEquals("middle", arr1.get(0));
-            System.out.println("Printing out array deque: ");
-            arr1.printDeque();
+            arr1.addFirst("b");
+            arr1.addFirst("a");
 
-            arr1.addLast("back");
-            assertEquals("back", arr1.get(0));
-            System.out.println("Printing out array deque: ");
-            arr1.printDeque();
+            System.out.println("Remove first item in array deque");
+            assertEquals("a", arr1.removeFirst());
+
+
+
+//            arr1.addLast("middle");
+//            assertEquals("middle", arr1.get(0));
+//            System.out.println("Printing out array deque: ");
+//            arr1.printDeque();
+//
+//            arr1.addLast("back");
+//            assertEquals("back", arr1.get(0));
+//            System.out.println("Printing out array deque: ");
+//            arr1.printDeque();
 
         } finally {
             // The deque will be printed at the end of this test

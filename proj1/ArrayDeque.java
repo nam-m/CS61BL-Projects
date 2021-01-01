@@ -6,13 +6,13 @@ public class ArrayDeque<T> implements Deque<T> {
     private int nextLast;
     private T[] items;
     // Number of items with values in array
-    private int numOfItems = 0;
-    // Pointer to array
-    private T ptr;
+    private int numOfItems;
 
+    // Create an empty array with specific size
     public ArrayDeque(int size) {
         items = (T[]) new Object[size];
-        ptr = items[0];
+        this.size = size;
+        numOfItems = 0;
         nextFirst = 0;
         nextLast = items.length-1;
     }
@@ -21,19 +21,27 @@ public class ArrayDeque<T> implements Deque<T> {
     public void addFirst(T item) {
         if (numOfItems >= size) {
             T[] newItems = (T[]) new Object[size + 1];
-            System.arraycopy(items, 0, items, 1, size);
-            items[0] = item;
+            System.arraycopy(items, 0, newItems, 1, size);
+            newItems[0] = item;
+            items = newItems;
+            // Increase array size by 1
+            size++;
         }
-//        items[nextFirst] = item;
+        else if (numOfItems < size) {
+            items[nextFirst] = item;
+        }
+        // Increase number of filled items by 1
         numOfItems++;
-        nextFirst = (nextFirst - 1) % size();
+        nextFirst = (nextFirst - 1) % size;
+        if (nextFirst < 0)
+            nextFirst += size;
     }
 
     @Override
     public void addLast(T item) {
         items[nextLast] = item;
         numOfItems++;
-        nextLast = (nextLast + 1) % size();
+        nextLast = (nextLast + 1) % size;
     }
 
     @Override
@@ -45,16 +53,23 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     public void printDeque() {
         String printedArray = "";
-        if (size() == 0)
+        if (size == 0)
             return;
-        for (int i=0; i < size(); i++)
+        for (int i=0; i < size; i++)
             printedArray += items[i] + " ";
         System.out.println(printedArray.trim());
     }
 
     @Override
     public T removeFirst() {
-        return null;
+        if (size() == 0)
+            return null;
+        T removedItem = null;
+        int removeIndex = (nextFirst + 1) % size;
+        removedItem = items[removeIndex];
+        items[removeIndex] = null;
+        numOfItems--;
+        return removedItem;
     }
 
     @Override
