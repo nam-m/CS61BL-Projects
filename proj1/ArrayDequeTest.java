@@ -28,11 +28,27 @@ public class ArrayDequeTest {
 
             arr1.addFirst("b");
             arr1.addFirst("a");
+            System.out.println("Printing out array deque: ");
+            arr1.printDeque();
 
             System.out.println("Remove first item in array deque");
             assertEquals("a", arr1.removeFirst());
+            System.out.println("Printing out array deque: ");
+            arr1.printDeque();
+            System.out.println("Remove first item in array deque");
+            assertEquals("b", arr1.removeFirst());
+            System.out.println("Printing out array deque: ");
+            arr1.printDeque();
+            System.out.println("Remove first item in array deque");
+            assertEquals("first", arr1.removeFirst());
+            System.out.println("Printing out array deque: ");
+            arr1.printDeque();
+            System.out.println("Remove first item in array deque");
+            assertEquals("front", arr1.removeFirst());
 
-
+            System.out.println("Printing out array deque: ");
+            arr1.printDeque();
+            assertTrue(arr1.isEmpty());
 
 //            arr1.addLast("middle");
 //            assertEquals("middle", arr1.get(0));
@@ -47,8 +63,8 @@ public class ArrayDequeTest {
         } finally {
             // The deque will be printed at the end of this test
             // or after the first point of failure.
-            System.out.println("Printing out array deque: ");
-            arr1.printDeque();
+//            System.out.println("Printing out array deque: ");
+//            arr1.printDeque();
 //            System.out.println("Printing out array deque: ");
 //            arr2.printDeque();
 //            int index = 3;
