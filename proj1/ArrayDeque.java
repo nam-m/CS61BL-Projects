@@ -26,13 +26,17 @@ public class ArrayDeque<T> implements Deque<T> {
             items = newItems;
             // Increase array size by 1
             size++;
+            nextFirst = 0;
         }
-        items[nextFirst] = item;
+        else {
+            items[nextFirst] = item;
+            nextFirst = (nextFirst - 1) % size;
+            if (nextFirst < 0)
+                nextFirst += size;
+        }
         // Increase number of filled items by 1
         numOfItems++;
-        nextFirst = (nextFirst - 1) % size;
-        if (nextFirst < 0)
-            nextFirst += size;
+
     }
 
     @Override
@@ -62,16 +66,25 @@ public class ArrayDeque<T> implements Deque<T> {
     public T removeFirst() {
         if (size() == 0)
             return null;
-        nextFirst = (nextFirst + 1) % size;
+        // Remove first item in array when array is full;
+        // otherwise, remove previous item to the last addFirst()
+//        nextFirst = (nextFirst + 1) % size;
         T removedItem = items[nextFirst];
         items[nextFirst] = null;
+        nextFirst = (nextFirst + 1) % size;
         numOfItems--;
         return removedItem;
     }
 
     @Override
     public T removeLast() {
-        return null;
+        if (size() == 0)
+            return null;
+        nextLast = (nextLast - 1) % size;
+        T removedItem = items[nextFirst];
+        items[nextFirst] = null;
+        numOfItems--;
+        return removedItem;
     }
 
     @Override
