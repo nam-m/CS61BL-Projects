@@ -14,7 +14,7 @@ public class ArrayDeque<T> implements Deque<T> {
         this.size = size;
         numOfItems = 0;
         nextFirst = 0;
-        nextLast = items.length-1;
+        nextLast = size - 1;
     }
 
     @Override
@@ -36,14 +36,25 @@ public class ArrayDeque<T> implements Deque<T> {
         }
         // Increase number of filled items by 1
         numOfItems++;
-
     }
 
     @Override
     public void addLast(T item) {
-        items[nextLast] = item;
+        if (numOfItems >= size) {
+            T[] newItems = (T[]) new Object[size + 1];
+            System.arraycopy(items, 0, newItems, 0, size);
+            newItems[size] = item;
+            items = newItems;
+            // Increase array size by 1
+            size++;
+            nextLast = items.length-1;
+        }
+        else {
+            items[nextLast] = item;
+            nextLast = (nextLast + 1) % size;
+        }
+        // Increase number of filled items by 1
         numOfItems++;
-        nextLast = (nextLast + 1) % size;
     }
 
     @Override
@@ -64,12 +75,14 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public T removeFirst() {
+        T removedItem = null;
         if (size() == 0)
-            return null;
+            return removedItem;
         // Remove first item in array when array is full;
         // otherwise, remove previous item to the last addFirst()
-//        nextFirst = (nextFirst + 1) % size;
-        T removedItem = items[nextFirst];
+        while (items[nextFirst] == null)
+            nextFirst++;
+        removedItem = items[nextFirst];
         items[nextFirst] = null;
         nextFirst = (nextFirst + 1) % size;
         numOfItems--;
@@ -78,11 +91,21 @@ public class ArrayDeque<T> implements Deque<T> {
 
     @Override
     public T removeLast() {
+        T removedItem = null;
         if (size() == 0)
-            return null;
+            return removedItem;
+        // Remove last item in array when array is full;
+        // otherwise, remove previous item to the last addLast()
+        while (items[nextLast] == null) {
+            nextLast--;
+            if (nextLast < 0)
+                nextLast += size;
+        }
+        removedItem = items[nextLast];
+        items[nextLast] = null;
         nextLast = (nextLast - 1) % size;
-        T removedItem = items[nextFirst];
-        items[nextFirst] = null;
+        if (nextLast < 0)
+            nextLast += size;
         numOfItems--;
         return removedItem;
     }
