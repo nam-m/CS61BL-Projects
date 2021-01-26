@@ -1,7 +1,7 @@
 package gitlet;
 
 /* Driver class for Gitlet, the tiny stupid version-control system.
-   @author
+   @author Nam Anh Mai
 */
 public class Main {
 
