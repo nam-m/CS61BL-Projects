@@ -85,7 +85,7 @@ tests.  With --keep, keeps the directories created for the tests (with names
 TEST.dir).
 
 When finished, reports number of tests passed and failed, and the number of
-faulty TEST.in files."""
+faulty TEST.in files."""k
 
 DIRECTORY_LAYOUT_ERROR = """\
 Your {} folder is not where we expected it. Please ensure that your directory
