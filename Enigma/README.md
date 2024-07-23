@@ -3,7 +3,7 @@
 ### Introduction 
 
 Enigma machine was an important piece of technology in the history of cryptography. 
-It was used to encrypt and decrypt secret messages, most notably by Nazi Germany
+It was used to encrypt and decrypt secret messages, most notably by Germany
 before and during World War II. 
 
 ### Description
